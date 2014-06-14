@@ -1,0 +1,28 @@
+{
+  "name": "hft-cli",
+  "version": "0.0.0",
+  "description": "HappyFunTimes hft command",
+  "main": "bin/hft.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "hft": "./bin/hft.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/greggman/hft-cli.git"
+  },
+  "keywords": [
+    "HappyFunTimes"
+  ],
+  "author": "Gregg Tavares",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/greggman/hft-cli/issues"
+  },
+  "homepage": "https://github.com/greggman/hft-cli",
+  "dependencies": {
+    "minimist": "^0.1.0"
+  }
+}
