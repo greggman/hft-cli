@@ -8,6 +8,13 @@ process.title = "hft";
 var path = require('path');
 var fs = require('fs');
 var args = require('minimist')(process.argv.slice(2));
+var hftConfig = require('../lib/hft-config');
+
+var config = hftConfig.getConfig();
+if (!config) {
+  console.log("ERROR: happyFunTimes does not appear to be installed.")
+  return;
+}
 
 var cmd = args._[0];
 if (!cmd) {
