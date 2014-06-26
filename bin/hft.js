@@ -8,7 +8,18 @@ process.title = "hft";
 var path = require('path');
 var fs = require('fs');
 var args = require('minimist')(process.argv.slice(2));
+var clc = require('cli-color');
 var hftConfig = require('../lib/hft-config');
+
+if (process.stderr.isTTY) {
+  console.error = function(originalError) {
+    return function() {
+      var args = Array.prototype.slice.apply(arguments);
+      args[0] = clc.red(args[0]);
+      originalError.apply(console, args);
+    };
+  }(console.error);
+}
 
 var config = hftConfig.getConfig();
 if (!config) {

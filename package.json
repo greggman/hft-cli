@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/greggman/hft-cli",
   "dependencies": {
-    "minimist": "^0.1.0"
+    "minimist": "^0.1.0",
+    "cli-color": "^0.3.2"
   }
 }
