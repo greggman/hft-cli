@@ -36,3 +36,21 @@ Commands are also expected to define a usage string as in
       "",
       "options",
     ].join("\n");
+
+The first line is appended to the command when showing usage so `"args"` will get shown as
+
+    hft foo args
+
+When parsing your arguments if you find some argument are missing or wrong call `badArgs` as in
+
+    var utils = require('../utils');
+
+    exports.cmd = function(args) {
+      if (args._.length < 2) {
+         utils.badArgs("missing filename or whatever", module);
+      }
+      console.log("args: " + args._.join(" ")); // show the args
+    };
+
+`badArgs` does not return.
+
