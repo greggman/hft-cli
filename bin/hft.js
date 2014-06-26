@@ -28,7 +28,10 @@ if (!cmd) {
     process.exit(1);
   }
   var cmdModule = require('../lib/cmds/' + cmd);
-  cmdModule.cmd(args);
+  if (cmdModule.cmd(args) === false) {
+    console.error("error running " + cmd);
+    process.exit(1);
+  }
 }
 
 function printUsage() {
@@ -40,7 +43,7 @@ function printUsage() {
     }
 
     var cmdUsage = require('../lib/cmds/' + cmd).usage;
-    usage.push(cmd.substring(0, cmd.length - 3) + ":\n    " + cmdUsage.split("\n").join("\n    ") + "\n");
+    usage.push(cmd.substring(0, cmd.length - 3) + " " + cmdUsage.split("\n").join("\n    ") + "\n");
   });
   console.log("usage: hft cmd [options]\n\n" + usage.join("\n"));
 };
