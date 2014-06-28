@@ -9,6 +9,7 @@ var path = require('path');
 var fs = require('fs');
 var args = require('minimist')(process.argv.slice(2));
 var clc = require('cli-color');
+var utils = require('../lib/utils');
 var hftConfig = require('../lib/hft-config');
 
 if (process.stderr.isTTY) {
@@ -23,9 +24,9 @@ if (process.stderr.isTTY) {
 
 hftConfig.setup({
   configPath: args.config,
+  hftDir: args["hft-dir"],
 });
-var config = hftConfig.getConfig();
-if (!config) {
+if (!hftConfig.check()) {
   console.log("ERROR: happyFunTimes does not appear to be installed.")
   return;
 }
@@ -41,7 +42,15 @@ if (!cmd) {
     printUsage();
     process.exit(1);
   }
+
   var cmdModule = require('../lib/cmds/' + cmd);
+  cmdModule.name = cmd;
+
+  if (args.help) {
+    utils.printUsage(cmdModule.usage, cmdModule.name);
+    process.exit(1);
+  }
+
   if (cmdModule.cmd(args) === false) {
     console.error("error running " + cmd);
     process.exit(1);
@@ -57,17 +66,19 @@ function printUsage() {
     }
 
     var cmdUsage = require('../lib/cmds/' + cmd).usage;
-    usage.push(cmd.substring(0, cmd.length - 3) + " " + cmdUsage.split("\n").join("\n    ") + "\n");
+    usage.push("    hft " + cmd.substring(0, cmd.length - 3) + " " + cmdUsage.split("\n")[0]);
   });
   console.log([
     "usage: hft cmd [options]",
     "",
-    "   global options:",
+    "    global options:",
     "",
-    "   --config=path path to config file",
+    "    --config=path   path to config file",
+    "    --hft-dir=path  path to hft installation",
+    "    --help          help for specific command",
     "",
     "",
-  ].join("\n") + usage.join("\n"));
+  ].join("\n") + usage.join("\n") + "\n");
 };
 
 
