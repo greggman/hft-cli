@@ -21,6 +21,9 @@ if (process.stderr.isTTY) {
   }(console.error);
 }
 
+hftConfig.setup({
+  configPath: args.config,
+});
 var config = hftConfig.getConfig();
 if (!config) {
   console.log("ERROR: happyFunTimes does not appear to be installed.")
@@ -56,7 +59,15 @@ function printUsage() {
     var cmdUsage = require('../lib/cmds/' + cmd).usage;
     usage.push(cmd.substring(0, cmd.length - 3) + " " + cmdUsage.split("\n").join("\n    ") + "\n");
   });
-  console.log("usage: hft cmd [options]\n\n" + usage.join("\n"));
+  console.log([
+    "usage: hft cmd [options]",
+    "",
+    "   global options:",
+    "",
+    "   --config=path path to config file",
+    "",
+    "",
+  ].join("\n") + usage.join("\n"));
 };
 
 
