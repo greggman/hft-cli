@@ -15,7 +15,7 @@ hftConfig.setup({
   hftDir: args["hft-dir"],
 });
 if (!hftConfig.check()) {
-  console.log("ERROR: happyFunTimes does not appear to be installed.")
+  console.error("ERROR: happyFunTimes does not appear to be installed.")
   return;
 }
 
